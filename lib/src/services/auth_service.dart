@@ -22,7 +22,9 @@ class AuthService extends ChangeNotifier{
       'Content-Type' : "application/json",
     };
 
-    final url = Uri.http(Config.apiURL, Config.registerRoute);
+    
+
+    final url = Uri.parse(Config.apiURL+Config.registerRoute);
 
     final resp = await http.post(url, body: json.encode(userData), headers: headerData);
 
@@ -49,7 +51,7 @@ class AuthService extends ChangeNotifier{
       'Content-Type' : "application/json",
     };
 
-    final url = Uri.http(Config.apiURL, Config.loginRoute);
+    final url = Uri.parse(Config.apiURL + Config.loginRoute);
 
     final resp = await http.post(url, body: json.encode(userData), headers: headerData);
 
@@ -77,7 +79,7 @@ class AuthService extends ChangeNotifier{
 
   Future<String?> logout() async{
   
-    final url = Uri.http(Config.apiURL, Config.logoutRoute);
+    final url = Uri.parse(Config.apiURL + Config.logoutRoute);
 
     final resp = await http.post(url);
 

@@ -21,7 +21,7 @@ class BarberService extends ChangeNotifier{
       'Cookie' : 'token=${User.token}',
     };
     
-    final url = Uri.http(Config.apiURL, Config.barberRoute);
+    final url = Uri.parse(Config.apiURL+ Config.barberRoute);
 
     final resp = await http.get(url, headers: headerData);
 

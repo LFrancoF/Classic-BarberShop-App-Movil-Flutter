@@ -29,7 +29,7 @@ class CitaService extends ChangeNotifier{
       'Cookie' : 'token=${User.token}',
     };
 
-    final url = Uri.http(Config.apiURL, Config.createCitaRoute);
+    final url = Uri.parse(Config.apiURL+ Config.createCitaRoute);
 
     final resp = await http.post(url, body: json.encode(userData), headers: headerData);
 

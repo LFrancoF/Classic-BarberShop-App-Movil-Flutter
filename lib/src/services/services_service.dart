@@ -27,7 +27,7 @@ class ServicesService extends ChangeNotifier{
       'Cookie' : 'token=${User.token}',
     };
     
-    final url = Uri.http(Config.apiURL, Config.serviceRoute);
+    final url = Uri.parse(Config.apiURL+ Config.serviceRoute);
 
     final resp = await http.get(url, headers: headerData);
 

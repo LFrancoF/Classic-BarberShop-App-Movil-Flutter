@@ -27,7 +27,7 @@ class CategoriesService extends ChangeNotifier{
       'Cookie' : 'token=${User.token}',
     };
     
-    final url = Uri.http(Config.apiURL, Config.categoryRoute);
+    final url = Uri.parse(Config.apiURL+ Config.categoryRoute);
 
     final resp = await http.get(url, headers: headerData);
 

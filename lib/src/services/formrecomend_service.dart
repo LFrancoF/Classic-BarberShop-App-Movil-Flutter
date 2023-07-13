@@ -21,7 +21,7 @@ class FormRecomendService extends ChangeNotifier{
       'Cookie' : 'token=${User.token}',
     };
 
-    final url = Uri.http(Config.apiURL, Config.createFormRecomendRoute);
+    final url = Uri.parse(Config.apiURL+ Config.createFormRecomendRoute);
 
     final resp = await http.post(url, body: json.encode(userData), headers: headerData);
 
@@ -42,7 +42,7 @@ class FormRecomendService extends ChangeNotifier{
   }
   
   Future< String? > uploadImage(String path) async{
-    //alternativa a Uri.https()
+    //alternativa a Uri.parse()
     final url = Uri.parse('https://api.cloudinary.com/v1_1/dtpxjlijj/image/upload?upload_preset=recomend-czfv4sem');
     
     //Para hacer la request a Cloudinary

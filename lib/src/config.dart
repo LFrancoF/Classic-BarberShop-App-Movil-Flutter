@@ -1,5 +1,5 @@
 class Config {
-  static const String apiURL = "10.0.2.2:3030";
+  static const String apiURL = "https://barbershop-api-production-feb4.up.railway.app";
   //auth Routes
   static const String registerRoute = "/api/register";
   static const String loginRoute = "/api/login";
