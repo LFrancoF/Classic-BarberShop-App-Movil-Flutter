@@ -1,15 +1,16 @@
+import 'package:app_classic/src/share_preferences/user.dart';
 import 'package:flutter/material.dart';
 
 class ThemeChanger with ChangeNotifier{
   
-  bool _darkTheme = false;
+  bool _darkTheme = User.isdarkmode;
   bool _customTheme = false;
 
   final ThemeData _lightThemeCustomed = ThemeData.light().copyWith(
           appBarTheme: const AppBarTheme(
-            color: Colors.indigo
+            color: Color.fromARGB(255, 26, 31, 58)
           ),
-          primaryColor: Colors.indigo
+          primaryColor: const Color.fromARGB(255, 26, 31, 58)
         );
 
   final ThemeData _darkThemeCustomed = ThemeData.dark().copyWith(
@@ -24,9 +25,9 @@ class ThemeChanger with ChangeNotifier{
 
   ThemeData _currentTheme = ThemeData.light().copyWith(
           appBarTheme: const AppBarTheme(
-            color: Colors.indigo
+            color: Color.fromARGB(255, 26, 31, 58)
           ),
-          primaryColor: Colors.indigo
+          primaryColor: const Color.fromARGB(255, 26, 31, 58)
         );
 
   bool get darkTheme => _darkTheme;
@@ -37,23 +38,27 @@ class ThemeChanger with ChangeNotifier{
     switch (theme) {
       case 1: //light
         _darkTheme = false;
+        User.isdarkmode = false;
         _customTheme = false;
         _currentTheme = _lightThemeCustomed;
       break;
 
       case 2: //dark
         _darkTheme = true;
+        User.isdarkmode = false;
         _customTheme = false;
         _currentTheme = _darkThemeCustomed;
       break;
 
       case 3: //custom
         _darkTheme = false;
+        User.isdarkmode = false;
         _customTheme = true;
       break;
 
       default:
         _darkTheme = false;
+        User.isdarkmode = false;
         _customTheme = false;
         _currentTheme = _lightThemeCustomed;
     }
@@ -62,6 +67,7 @@ class ThemeChanger with ChangeNotifier{
   set darkTheme(bool value){
     _customTheme = false;
     _darkTheme = value;
+    User.isdarkmode = value;
     if (value) {
       _currentTheme = _darkThemeCustomed;
     }else{
@@ -73,6 +79,7 @@ class ThemeChanger with ChangeNotifier{
   set customTheme(bool value){
     _customTheme = value;
     _darkTheme = false;
+    User.isdarkmode = false;
     if (value) {
       _currentTheme = _lightThemeCustomed;
     }else{

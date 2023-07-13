@@ -11,7 +11,7 @@ class OptionButton extends StatelessWidget {
 
   const OptionButton({
     super.key, 
-    this.icon = FontAwesomeIcons.shop, 
+    this.icon = FontAwesomeIcons.scissors, 
     required this.texto, 
     this.color1 = const Color(0xff6989F5), 
     this.color2 = const Color(0xff906EF5), 

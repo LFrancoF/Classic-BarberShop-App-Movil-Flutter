@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import 'package:app_classic/src/services/services.dart';
 import 'package:app_classic/src/theme/theme.dart';
 import 'package:app_classic/src/routes/routes.dart';
 
@@ -66,22 +66,32 @@ class _OptionsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final appTheme = Provider.of<ThemeChanger>(context).currentTheme;
+  final appTheme = Provider.of<ThemeChanger>(context).currentTheme;
 
-    return ListView.separated(
-      physics: const BouncingScrollPhysics(),
-      itemBuilder: (context, index) => ListTile(
-        leading: FaIcon(pageRoutes[index].icon, color: appTheme.primaryColor,),
-        title: Text(pageRoutes[index].title),
+  return ListView(
+    children: [
+      ListTile(
+        leading: Icon(Icons.house, color: appTheme.primaryColor,),
+        title: Text(pageRoutes[1].title),
         trailing: Icon(Icons.chevron_right, color: appTheme.primaryColor,),
         onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => pageRoutes[index].page,));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => pageRoutes[1].page,));
         },
       ),
-      separatorBuilder: (context, index) => Divider(
-        color: appTheme.primaryColorLight,
+      ListTile(
+        leading: Icon(Icons.logout, color: appTheme.primaryColor,),
+        title: const Text("Logout"),
+        trailing: Icon(Icons.chevron_right, color: appTheme.primaryColor,),
+        onTap: () async{
+
+          final authService = Provider.of<AuthService>(context, listen: false);
+          await authService.logout();
+          // ignore: use_build_context_synchronously
+          Navigator.pushReplacementNamed(context, 'login');
+        },
       ),
-      itemCount: pageRoutes.length
-    );
+    ],
+  );
+    
   }
 }

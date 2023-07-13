@@ -1,17 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:app_classic/src/pages/home_page.dart';
-import 'package:app_classic/src/theme/theme.dart';
+import 'package:app_classic/src/share_preferences/user.dart';
 
-void main() => runApp(
-  MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => ThemeChanger(3)),
-      ],
-      child: const MyApp(),
-    ),
-);
+import 'package:app_classic/src/pages/pages.dart';
+import 'package:app_classic/src/theme/theme.dart';
+import 'package:app_classic/src/services/services.dart';
+
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await User.init();
+  runApp(
+    MultiProvider(
+        providers: [
+          ChangeNotifierProvider( create: (_) => ThemeChanger(3) ),
+          ChangeNotifierProvider( create: (_) => AuthService() ),
+          ChangeNotifierProvider( create: (_) => ServicesService() ),
+          ChangeNotifierProvider( create: (_) => CategoriesService() ),
+          ChangeNotifierProvider( create: (_) => BarberService() ),
+          ChangeNotifierProvider( create: (_) => CitaService() ),
+          ChangeNotifierProvider( create: (_) => FormRecomendService() ),
+        ],
+        child: const MyApp(),
+      ),
+  );
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -24,8 +37,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: currentTheme,
       debugShowCheckedModeBanner: false,
-      title: 'Material App',
-      home: const HomePage()
+      title: 'Barber App',
+      initialRoute: 'login',
+      routes: {
+        'login'    :(_) => User.token=='' ? const LoginPage() : const HomePage(),
+        'home'     :(_) => User.token=='' ? const LoginPage() : const HomePage(),
+        'register' :(_) => const RegisterPage(),
+        'listrecomend' :(_) => const ListRecomendPage()
+      },
+      scaffoldMessengerKey: NotificationsService.messengerKey,
     );
   }
 }
